@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -23,6 +24,11 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.android_ppe4_anais.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Boolean connex=true;
     private Menu lemenu;
-    private String lenom,leprenom,lidentifiant,lemotdepasse;
-    private Async mThreadCon = null;
+    private String lenom,leprenom;
+    private Async mThreadCon = null, vmapref=null;
 
     private String url;
     private String[] mesparams;
@@ -289,11 +295,15 @@ public class MainActivity extends AppCompatActivity {
     /*============================================================================================*/
     /*============================================================================================*/
 
+
+
     public void retourConnexion(StringBuilder sb)
     {
         alertmsg("retour Connexion", sb.toString());
 
 // je reçois le string que je transforme en json
+
+
 
         //je regarde si il y a le "statut":"false"
         //si y'a pas le statut false, je récupère le nom et le prénom de l'infirmière

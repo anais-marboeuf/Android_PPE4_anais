@@ -140,4 +140,11 @@ public class Async extends AsyncTask<String, String, Boolean> {
         if(activityAppelante.get() != null)
             Toast.makeText(activityAppelante.get(), "Annulation", Toast.LENGTH_SHORT).show();
     }
+
+    public String getNom() {
+        return "unNom";
+    }
+    public String getPrenom() {
+        return "unPrenom";
+    }
 }

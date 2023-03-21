@@ -13,7 +13,14 @@ import android.app.Activity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SecondFragment extends Fragment {
 
@@ -24,6 +31,7 @@ public class SecondFragment extends Fragment {
     private EditText mdp;
     private String url;
     private String[] mesparams;
+    private EditText zoneIdentifiant, zoneMdp;
 
 
 
@@ -40,6 +48,11 @@ public class SecondFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setContentView(R.layout.fragment_second);
+        //Récupération de la zone de saisie pour l'identifiant et le mot de passe
+        zoneIdentifiant = (EditText) findViewById(R.id.etFragId);
+        zoneMdp = (EditText) findViewById(R.id.etFragPassword);
+
         login = (EditText)view.findViewById(R.id.etFragId);
         mdp = (EditText)view.findViewById(R.id.etFragPassword);
 
