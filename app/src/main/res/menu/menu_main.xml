@@ -1,0 +1,46 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android_ppe4_anais.MainActivity">
+
+    <group android:id="@+id/group_menu_deconnect"
+        android:visible="true">
+        <item
+            android:id="@+id/menu_connect"
+            android:icon="@drawable/on"
+            android:title="@string/menu_connexion"
+            app:showAsAction="ifRoom|withText" />
+    </group>
+    <group android:id="@+id/group_menu_connect"
+        android:visible="false">
+        <item
+            android:id="@+id/action_settings"
+            android:orderInCategory="100"
+            android:title="@string/action_settings"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/menu_list"
+            android:icon="@drawable/ilist"
+            app:showAsAction="ifRoom"
+
+            android:title="@string/menu_list" />
+
+        <item
+            android:id="@+id/menu_import"
+            android:icon="@drawable/iimport"
+            android:title="@string/menu_import"
+            app:showAsAction="ifRoom" />
+
+        <item
+            android:id="@+id/menu_export"
+            android:icon="@drawable/iexport"
+            app:showAsAction="ifRoom"
+            android:title="@string/menu_export" />
+        <item
+            android:id="@+id/menu_deconnect"
+            android:icon="@drawable/off"
+            android:title="@string/menu_deconnexion"
+            app:showAsAction="ifRoom" />
+    </group>
+
+</menu>
