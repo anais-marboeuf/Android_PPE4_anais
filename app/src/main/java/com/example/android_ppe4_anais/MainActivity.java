@@ -1,32 +1,29 @@
 package com.example.android_ppe4_anais;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.view.View;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import com.example.android_ppe4_anais.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
-import android.content.Intent;
-import android.Manifest;
-import android.content.pm.PackageManager;
-import java.util.List;
-import java.util.ArrayList;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.net.Uri;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import com.example.android_ppe4_anais.databinding.ActivityMainBinding;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
     private Boolean connex=true;
     private Menu lemenu;
     private String lenom,leprenom,lidentifiant,lemotdepasse;
+    private Async mThreadCon = null;
+
+    private String url;
+    private String[] mesparams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,11 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Vérifie si l'identifiant et le mot de passe sont validés et pas vide
     public void ctrlConnex(String vid,String vmp) {
-        if (TextUtils.isEmpty(lidentifiant) && TextUtils.isEmpty(lemotdepasse)) {
-            lidentifiant=vid;
-            //lemotdepasse=methodeMD5(vmp);
-            lemotdepasse=vmp;
-        }
+
     }
 
     // Demande et vérification des permissions
@@ -160,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean permissionOverlayAsked=false;
     private boolean permissionOverlayok=false;
     private boolean permissionOK=false;
+
 
     @Override
     public void onStart() {
@@ -294,6 +292,31 @@ public class MainActivity extends AppCompatActivity {
     public void retourConnexion(StringBuilder sb)
     {
         alertmsg("retour Connexion", sb.toString());
+
+// je reçois le string que je transforme en json
+
+        //je regarde si il y a le "statut":"false"
+        //si y'a pas le statut false, je récupère le nom et le prénom de l'infirmière
+        //je passe les infos au 3eme fragment et je les affiche dans les textview du troisieme fragment
+
+        //Naviguer de ce fragment jusq'au troisième fragment
+       // NavHostFragment.findNavController(SecondFragment.this).navigate(R.id.action_SecondFragment_to_TroisiemeFragment);
+    }
+
+    public void testMotDePasse(String login, String mdp) {
+        if (!TextUtils.isEmpty(login) && !TextUtils.isEmpty(mdp)) {
+            url = "https://www.btssio-carcouet.fr/ppe4/public/connect2/"+login+"/"+mdp+"/infirmiere";
+            //Au clic du bouton ok
+            mesparams=new String[3];
+            mesparams[0]="1";
+            mesparams[1]=url;
+            mesparams[2]="GET";
+            mThreadCon = new Async ((this));
+            mThreadCon.execute(mesparams);
+
+
+        }
+
     }
 
 //    @Override

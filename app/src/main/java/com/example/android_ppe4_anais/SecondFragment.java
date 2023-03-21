@@ -21,7 +21,7 @@ public class SecondFragment extends Fragment {
     // Variable qui permettent d'appeler le webservice
     private Async mThreadCon = null;
     private EditText login;
-    private EditText pass;
+    private EditText mdp;
     private String url;
     private String[] mesparams;
 
@@ -40,7 +40,8 @@ public class SecondFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        login = (EditText)view.findViewById(R.id.etFragId);
+        mdp = (EditText)view.findViewById(R.id.etFragPassword);
 
         // Liaison entre ce fragment et le premier fragment avec le bouton cancel
         binding.bFragCancel.setOnClickListener(new View.OnClickListener() {
@@ -56,18 +57,10 @@ public class SecondFragment extends Fragment {
             public void onClick(View view) {
                 // ((MainActivity)getActivity()).menuDeconnecte();
 
-                //Au clic du bouton ok
-                mesparams=new String[3];
-                mesparams[0]="1";
-                // http://www.btssio-carcouet.fr/ppe4/public/connect2/login/password/infirmiere url de base
-                mesparams[1]="http://www.btssio-carcouet.fr/ppe4/public/connect2/login/password/infirmiere";
-                mesparams[2]="GET";
-                mThreadCon = new Async ((MainActivity)getActivity());
-                mThreadCon.execute(mesparams);
 
-                //Naviguer de ce fragment jusq'au troisième fragment
-                NavHostFragment.findNavController(SecondFragment.this).navigate(R.id.action_SecondFragment_to_TroisiemeFragment);
-                ((MainActivity)getActivity()).ctrlConnex("recupid","recupmp");
+                //On renvoit à la mainActivity la gestion du login et du mdp via la function testMotDePasse
+                ((MainActivity)getActivity()).testMotDePasse(login.getText().toString().trim(),mdp.getText().toString().trim());
+
                 }
 
         });
